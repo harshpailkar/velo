@@ -32,4 +32,10 @@ class Velo:
             annual_sharpe = 0
 
         print(f"Annualized Sharpe Ratio: {annual_sharpe:.2f}")
-        return annual_sharpe
+        
+        self.df['peak'] = self.df['cum_returns'].cummax()
+        self.df['drawdown'] = (self.df['peak'] - self.df['cum_returns']) / self.df['peak']
+        max_drawdown = self.df['drawdown'].max()
+
+        print(f"Maximum Drawdown: {max_drawdown:.2%}")
+        return max_drawdown
